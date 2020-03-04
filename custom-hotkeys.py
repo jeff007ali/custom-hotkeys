@@ -21,7 +21,8 @@ def paste_text():
 
 def convert_to_uppercase():
     # print("In uppercase function")
-    data = pyperclip.paste()
+    data = pyperclip.copy('')
+    # data = pyperclip.paste()
     # print('data before copy : {}'.format(data))
     copy_text()
     data = pyperclip.paste()
@@ -36,7 +37,8 @@ def convert_to_uppercase():
 
 def convert_to_lowercase():
     # print("In lowercase function")
-    data = pyperclip.paste()
+    data = pyperclip.copy('')
+    # data = pyperclip.paste()
     # print('data before copy : {}'.format(data))
     copy_text()
     data = pyperclip.paste()
