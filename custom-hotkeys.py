@@ -3,7 +3,7 @@ import pyperclip
 import time
 
 def copy_text():
-    # print('copy')
+    print('copy')
     keyboard = Controller()
     keyboard.press(Key.ctrl_l)
     keyboard.press('c')
@@ -20,13 +20,13 @@ def paste_text():
     keyboard.release(Key.ctrl_l)
 
 def convert_to_uppercase():
-    # print("In uppercase function")
+    print("In uppercase function")
     data = pyperclip.copy('')
     # data = pyperclip.paste()
     # print('data before copy : {}'.format(data))
     copy_text()
     data = pyperclip.paste()
-    # print('data after copy : {}'.format(data))
+    print('data after copy : {}'.format(data))
 
     data = data.upper()
 
@@ -52,7 +52,7 @@ def convert_to_lowercase():
     # print('modified data after paste : {}'.format(data))
 
 key_combos_with_functions = {
-    frozenset([Key.alt, KeyCode(char='u')]): convert_to_uppercase,
+    frozenset([Key.alt, Key.shift, KeyCode(char='U')]): convert_to_uppercase,
     frozenset([Key.alt, KeyCode(char='l')]): convert_to_lowercase,
 }
 
@@ -60,14 +60,18 @@ pressed_keys = set()
 
 def on_press(key):
     pressed_keys.add(key)
-    # print("on_press: {}".format(pressed_keys))
+    print("on_press: {}".format(pressed_keys))
+    # print(key_combos_with_functions)
     if frozenset(pressed_keys) in key_combos_with_functions:
         # print("Run things")
-        # print(key_combos_with_functions[frozenset(pressed_keys)])
+        print("In if : {}".format(pressed_keys))
+        # print(key_combos_with_functions)
         key_combos_with_functions[frozenset(pressed_keys)]()
 
 def on_release(key):
+    print("on_release: {}".format(pressed_keys))
     pressed_keys.remove(key)
+    
     # print("on_release: {}".format(pressed_keys))
 
 with Listener(on_press=on_press, on_release=on_release) as listener:
