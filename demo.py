@@ -1,9 +1,10 @@
+from custom_hotkey import CustomHotkey, KeyCombo, KeyWord
 from pynput.keyboard import Key, Controller, KeyCode, Listener
 import pyperclip
 import time
 
 def copy_text():
-    print('copy')
+    # print('copy')
     keyboard = Controller()
     keyboard.press(Key.ctrl_l)
     keyboard.press('c')
@@ -51,28 +52,18 @@ def convert_to_lowercase():
     paste_text()
     # print('modified data after paste : {}'.format(data))
 
-key_combos_with_functions = {
-    frozenset([Key.alt, Key.shift, KeyCode(char='U')]): convert_to_uppercase,
-    frozenset([Key.alt, KeyCode(char='l')]): convert_to_lowercase,
+
+
+keycombos = {
+    'lowercase': KeyCombo(['alt', 'shift', 'L'], convert_to_lowercase),
+    'uppercase': KeyCombo(['alt', 'u'], convert_to_uppercase)
+#     frozenset([Key.alt, Key.shift, KeyCode(char='U')]): convert_to_uppercase,
+#     frozenset([Key.alt, KeyCode(char='l')]): convert_to_lowercase,
 }
 
-pressed_keys = set()
+keywords = {
+    'signature': KeyWord('-jeff', 'Regards,\nJafar Ali')
+}
 
-def on_press(key):
-    pressed_keys.add(key)
-    print("on_press: {}".format(pressed_keys))
-    # print(key_combos_with_functions)
-    if frozenset(pressed_keys) in key_combos_with_functions:
-        # print("Run things")
-        print("In if : {}".format(pressed_keys))
-        # print(key_combos_with_functions)
-        key_combos_with_functions[frozenset(pressed_keys)]()
-
-def on_release(key):
-    print("on_release: {}".format(pressed_keys))
-    pressed_keys.remove(key)
-    
-    # print("on_release: {}".format(pressed_keys))
-
-with Listener(on_press=on_press, on_release=on_release) as listener:
-    listener.join()
+custom_hotkey = CustomHotkey(keycombos=keycombos, keywords=keywords)
+custom_hotkey.run()
