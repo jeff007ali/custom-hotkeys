@@ -3,6 +3,15 @@ from pynput.keyboard import Key, Controller, KeyCode, Listener
 import pyperclip
 import time
 
+def read_clipboard_data():
+    return pyperclip.paste()
+
+def write_clipboard_data(data):
+    pyperclip.copy(data)
+
+def clear_clipboard_data():
+    pyperclip.copy('')
+
 def copy_text():
     # print('copy')
     keyboard = Controller()
@@ -22,33 +31,33 @@ def paste_text():
 
 def convert_to_uppercase():
     print("In uppercase function")
-    data = pyperclip.copy('')
+    clear_clipboard_data()
     # data = pyperclip.paste()
     # print('data before copy : {}'.format(data))
     copy_text()
-    data = pyperclip.paste()
+    data = read_clipboard_data()
     print('data after copy : {}'.format(data))
 
     data = data.upper()
 
     # print('modified data before paste : {}'.format(data))
-    pyperclip.copy(data)
+    write_clipboard_data(data)
     paste_text()
     # print('modified data after paste : {}'.format(data))
 
 def convert_to_lowercase():
     # print("In lowercase function")
-    data = pyperclip.copy('')
+    clear_clipboard_data()
     # data = pyperclip.paste()
     # print('data before copy : {}'.format(data))
     copy_text()
-    data = pyperclip.paste()
+    data = read_clipboard_data()
     # print('data after copy : {}'.format(data))
 
     data = data.lower()
 
     # print('modified data before paste : {}'.format(data))
-    pyperclip.copy(data)
+    write_clipboard_data(data)
     paste_text()
     # print('modified data after paste : {}'.format(data))
 

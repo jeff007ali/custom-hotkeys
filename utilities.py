@@ -2,24 +2,35 @@ from pynput.keyboard import Key, KeyCode, Controller
 import pyperclip
 import time
 
-current_pressed_key = None
+recently_typed_text = ''
 
-all_pressed_key = set()
+currently_pressed_keys = set()
 
 def key_string_value(key):
     key = str(KeyCode.from_char(key))
     key = key.replace('Key.', '').replace('"','')
     key = eval(key)
-    print("Key_value : {}".format(key))
+    key = key.lower()
+    if key == '<65511>':
+        key = 'alt'
+    elif key == '<65512>':
+        key = 'alt_r'
+    # print("Key_value : {}".format(key))
     return key
 
 def add_key(key):
-    global all_pressed_key
-    all_pressed_key.add(key)
+    global currently_pressed_keys
+    currently_pressed_keys.add(key)
 
 def remove_key(key):
-    global all_pressed_key
-    all_pressed_key.remove(key)
+    global currently_pressed_keys
+    currently_pressed_keys.remove(key)
+
+def update_recent_text(key):
+    global recently_typed_text
+    if key in ['ctrl', 'ctrl_r', 'alt', 'alt_r']:
+        pass
+    recently_typed_text = recently_typed_text + key
 
 def delete_text(string):
     keyboard = Controller()
@@ -53,11 +64,11 @@ def replace_keyword(keyword, string):
 def is_combo_matched(combo):
     key_combos = combo.key_list
     # print(key_combos)
-    # print(all_pressed_key)
-    if frozenset(all_pressed_key) == key_combos:
+    # print(currently_pressed_keys)
+    if frozenset(currently_pressed_keys) == key_combos:
         print("do action")
         print(key_combos)
-        print(all_pressed_key)
+        print(currently_pressed_keys)
         return True
 
     return False
