@@ -62,6 +62,21 @@ def convert_to_lowercase():
     # print('modified data after paste : {}'.format(data))
 
 
+# TODO : Try this out
+"""
+    from pynput import keyboard
+
+    def on_activate_h():
+        print('<ctrl>+<alt>+h pressed')
+
+    def on_activate_i():
+        print('<ctrl>+<alt>+i pressed')
+
+    with keyboard.GlobalHotKeys({
+            '<ctrl>+<alt>+h': on_activate_h,
+            '<ctrl>+<alt>+i': on_activate_i}) as h:
+        h.join()
+"""
 
 keycombos = {
     'lowercase': KeyCombo(['alt', 'shift', 'L'], convert_to_lowercase),
@@ -71,7 +86,7 @@ keycombos = {
 }
 
 keywords = {
-    'signature': KeyWord('-jf', 'Regards,\nJafar Ali')
+    'signature': KeyWord('-jeff', 'Regards,\nJafar Ali')
 }
 
 custom_hotkey = CustomHotkey(keycombos=keycombos, keywords=keywords)

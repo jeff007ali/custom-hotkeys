@@ -32,14 +32,15 @@ def update_recent_text(key):
     print("Utility, Recently updated text : {}".format(recently_typed_text))
     return recently_typed_text
 
-# def get_recent_text(keyword):
-#     print("in recent text")
-#     select_text(keyword)
-#     copy_text()
-#     print(read_clipboard_data())
-#     return read_clipboard_data()
+def get_recent_text(keyword):
+    print("in recent text")
+    select_text(keyword)
+    copy_text()
+    print(read_clipboard_data())
+    return read_clipboard_data()
 
 def select_text(text):
+    print("in select text")
     keyboard = Controller()
     keyboard.press(Key.shift)
     for _ in text:

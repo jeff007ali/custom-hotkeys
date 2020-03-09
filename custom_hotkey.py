@@ -1,7 +1,6 @@
 from pynput.keyboard import Key, Listener, KeyCode, Controller
 from utilities import *
 
-
 class CustomHotkey:
     def __init__(self, keycombos, keywords):
         self.keycombos = keycombos
@@ -11,7 +10,8 @@ class CustomHotkey:
         key = key_string_value(key)
         print("on_press : {}".format(key))
         add_key(key)
-        # recently_text = update_recent_text(key)
+
+        # TODO : make recently_typed_text varible as list instead of string. This will help us to handle backspace, delete, etc.
         global recently_typed_text
         recently_typed_text = recently_typed_text + key
 
@@ -20,10 +20,11 @@ class CustomHotkey:
                 combo.run()
         
         for keyword in self.keywords.values():
-            # print("keyword scan")
-            print("final trigger string : {}".format(keyword.final_trigger_string))
-            print("Recently updated text : {}".format(recently_typed_text))
+            print("keyword scan")
+            # print("final trigger string : {}".format(keyword.final_trigger_string))
+            # print("Recently updated text : {}".format(recently_typed_text))
             if keyword.final_trigger_string in recently_typed_text:
+            # if keyword.trigger_string == get_recent_text(keyword.trigger_string):
                 recently_typed_text = ''
                 keyword.run()
 
@@ -56,7 +57,6 @@ class KeyWord:
         # print("final trigger string : {}".format(self.final_trigger_string))
         self.replacement_string = replacement_string
         self.args = args
-        print(args)
         self.kwargs = kwargs
     def run(self):
         replace_keyword(self.trigger_string, self.replacement_string)
