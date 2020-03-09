@@ -71,7 +71,7 @@ keycombos = {
 }
 
 keywords = {
-    'signature': KeyWord('-jeff', 'Regards,\nJafar Ali')
+    'signature': KeyWord('-jf', 'Regards,\nJafar Ali')
 }
 
 custom_hotkey = CustomHotkey(keycombos=keycombos, keywords=keywords)

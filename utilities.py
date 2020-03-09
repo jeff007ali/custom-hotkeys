@@ -28,9 +28,25 @@ def remove_key(key):
 
 def update_recent_text(key):
     global recently_typed_text
-    if key in ['ctrl', 'ctrl_r', 'alt', 'alt_r']:
-        pass
     recently_typed_text = recently_typed_text + key
+    print("Utility, Recently updated text : {}".format(recently_typed_text))
+    return recently_typed_text
+
+# def get_recent_text(keyword):
+#     print("in recent text")
+#     select_text(keyword)
+#     copy_text()
+#     print(read_clipboard_data())
+#     return read_clipboard_data()
+
+def select_text(text):
+    keyboard = Controller()
+    keyboard.press(Key.shift)
+    for _ in text:
+        keyboard.press(Key.left)
+        keyboard.release(Key.left)
+    keyboard.release(Key.shift)
+
 
 def delete_text(string):
     keyboard = Controller()
@@ -56,8 +72,8 @@ def paste_text():
     keyboard.release('v')
     keyboard.release(Key.ctrl_l)
 
-def replace_keyword(keyword, string):
-    pyperclip.copy(string)
+def replace_keyword(keyword, text):
+    pyperclip.copy(text)
     delete_text(keyword)
     paste_text()
 
@@ -70,5 +86,13 @@ def is_combo_matched(combo):
         print(key_combos)
         print(currently_pressed_keys)
         return True
-
     return False
+
+def read_clipboard_data():
+    return pyperclip.paste()
+
+def write_clipboard_data(data):
+    pyperclip.copy(data)
+
+def clear_clipboard_data():
+    pyperclip.copy('')

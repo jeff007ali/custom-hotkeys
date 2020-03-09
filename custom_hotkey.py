@@ -10,15 +10,19 @@ class CustomHotkey:
     def on_press(self, key):
         key = key_string_value(key)
         print("on_press : {}".format(key))
-        global recently_typed_text
         add_key(key)
-        # update_recent_text(key)
+        # recently_text = update_recent_text(key)
+        global recently_typed_text
+        recently_typed_text = recently_typed_text + key
 
         for combo in self.keycombos.values():
             if is_combo_matched(combo):
                 combo.run()
         
         for keyword in self.keywords.values():
+            # print("keyword scan")
+            print("final trigger string : {}".format(keyword.final_trigger_string))
+            print("Recently updated text : {}".format(recently_typed_text))
             if keyword.final_trigger_string in recently_typed_text:
                 recently_typed_text = ''
                 keyword.run()
@@ -46,11 +50,14 @@ class KeyCombo:
 
 
 class KeyWord:
-    def __init__(self, trigger_string, *args, **kwargs):
+    def __init__(self, trigger_string, replacement_string, *args, **kwargs):
         self.trigger_string = trigger_string
         self.final_trigger_string = ''.join(['space' if x == ' ' else x for x in trigger_string])
+        # print("final trigger string : {}".format(self.final_trigger_string))
+        self.replacement_string = replacement_string
         self.args = args
+        print(args)
         self.kwargs = kwargs
     def run(self):
-        replace_keyword(self.trigger_string, *self.args, **self.kwargs)
+        replace_keyword(self.trigger_string, self.replacement_string)
 
