@@ -1,0 +1,19 @@
+<alt+1> : uppercase me
+
+<alt+2> : LOWERCASE ME
+
+<alt+3> : Flip Me
+
+<alt+4> : capitalize me
+
+<alt+5> : capitalize every word of me
+
+<alt+6> : alternate
+
+<alt+7> : Spongebob me
+
+<alt+8> : Snake Case me
+
+<alt+9> : Reverse Me
+
+<alt+0> : Compute Me : 5/(2+4*0.9)-1**2

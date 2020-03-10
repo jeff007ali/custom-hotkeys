@@ -6,6 +6,8 @@ recently_typed_text = ''
 
 currently_pressed_keys = set()
 
+kb = Controller()
+
 def key_string_value(key):
     key = str(KeyCode.from_char(key))
     key = key.replace('Key.', '').replace('"','')
@@ -41,40 +43,40 @@ def get_recent_text(keyword):
 
 def select_text(text):
     print("in select text")
-    keyboard = Controller()
-    keyboard.press(Key.shift)
+    # kb = Controller()
+    kb.press(Key.shift)
     for _ in text:
-        keyboard.press(Key.left)
-        keyboard.release(Key.left)
-    keyboard.release(Key.shift)
+        kb.press(Key.left)
+        kb.release(Key.left)
+    kb.release(Key.shift)
 
 
 def delete_text(string):
-    keyboard = Controller()
+    # kb = Controller()
     for _ in string:
-        keyboard.press(Key.backspace)
-        keyboard.release(Key.backspace)
+        kb.press(Key.backspace)
+        kb.release(Key.backspace)
         time.sleep(0.05)
 
 def copy_text():
     # print('copy')
-    keyboard = Controller()
-    keyboard.press(Key.ctrl_l)
-    keyboard.press('c')
-    keyboard.release('c')
-    keyboard.release(Key.ctrl_l)
+    # kb = Controller()
+    kb.press(Key.ctrl_l)
+    kb.press('c')
+    kb.release('c')
+    kb.release(Key.ctrl_l)
     time.sleep(0.1)
 
 def paste_text():
     # print('paste')
-    keyboard = Controller()
-    keyboard.press(Key.ctrl_l)
-    keyboard.press('v')
-    keyboard.release('v')
-    keyboard.release(Key.ctrl_l)
+    # kb = Controller()
+    kb.press(Key.ctrl_l)
+    kb.press('v')
+    kb.release('v')
+    kb.release(Key.ctrl_l)
 
 def replace_keyword(keyword, text):
-    pyperclip.copy(text)
+    write_clipboard_data(text)
     delete_text(keyword)
     paste_text()
 
@@ -97,3 +99,15 @@ def write_clipboard_data(data):
 
 def clear_clipboard_data():
     pyperclip.copy('')
+
+def before_conversion():
+    # print("before conversation")
+    clear_clipboard_data()
+    copy_text()
+    data = read_clipboard_data()
+    return data
+
+def after_conversion(data):
+    # print("after conversation")
+    write_clipboard_data(data)
+    paste_text()
