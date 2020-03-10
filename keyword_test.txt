@@ -1,0 +1,5 @@
+Instead of writing something repeatedly, you can assign it to code. Then just type that code and it will change that code into assigned text. 
+
+For example, instead of writing your signature, simply type "-jeff" and it will convert code into "Regards,\nJafar Ali"
+
+
